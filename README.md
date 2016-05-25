@@ -1,11 +1,25 @@
-# my_countdown
-to remind me of important days
+# antd-demo
 
-## todo
-- 分类别提醒，工作、生活、节日、生日
-- 分今日、明日、七天内、一月内、一年内事项说明
-- 云端备份功能
-- 支持手机终端
+## Environment
 
-## 参考
-待定
+```
+node >= 4
+```
+
+## Code Style
+
+https://github.com/airbnb/javascript
+
+## Develop
+
+```
+npm run dev
+```
+
+访问 http://127.0.0.1:8989
+
+## Build
+
+```
+npm run build
+```
