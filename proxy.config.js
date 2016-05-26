@@ -9,17 +9,35 @@ module.exports = {
         data: [
           {
             id: 1,
-            text: 'Learn antd',
+            text: '学习 antd',
             isComplete: true,
           },
           {
             id: 2,
-            text: 'Learn ant-tool',
+            text: '学习 ant-tool',
           },
           {
             id: 3,
-            text: 'Learn dora',
+            text: '学习 dora',
           },
+        ],
+      });
+    }, 500);
+  },
+  '/api/countdowns': function(req, res) {
+    setTimeout(function() {
+      res.json({
+        success: true,
+        data: [
+          {
+            id: 1,
+            text: '学习 antd',
+            isComplete: true,
+          },
+          {
+            id: 2,
+            text: '学习 ant-tool',
+          }
         ],
       });
     }, 500);

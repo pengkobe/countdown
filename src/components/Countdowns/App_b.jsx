@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import Countdowns from './Countdowns/Countdowns';
-import AddCountdown from './Countdowns/AddCountdown';
+import Todos from './Todos/Todos';
 import MainLayout from '../layouts/MainLayout/MainLayout';
-//  <Countdowns location={location} />
+
 const App = ({ location }) => {
   return (
     <MainLayout>
-     <Countdowns location={location}  />
+      <Todos location={location} />
     </MainLayout>
   );
 };
