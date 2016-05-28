@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Spin, Modal ,Button  } from 'antd';
+import { Spin, Button  } from 'antd';
 import Countdown from './Countdown';
 import AddCountdown from './AddCountdown';
 import styles from './Countdowns.less';
@@ -13,9 +13,7 @@ class CountdownsContainer extends Component {
       // 倒计时列表
       list: [],
       loading: false,
-      visible: false,
     };
-    this.showModal.bind(this);
   }
 
   loadCountdowns() {
@@ -26,20 +24,6 @@ class CountdownsContainer extends Component {
         loading: false,
       });
     })
-  }
-  showModal() {
-    this.setState({
-      visible: true,
-    });
-  }
-  handleOk() {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  }
-  handleCancel() {
-    this.setState({ visible: false });
   }
 
   // 状态切换(无用)
@@ -64,25 +48,13 @@ componentDidMount() {
 render() {
   const { location } = this.props;
   const { list, loading } = this.state;
+
   // location.pathname: 当前路径
   const countdowns = filter({ list, loading }, location.pathname);
   return (
     <div>
-      <Button type="primary" onClick={this.showModal.bind(this)}>
-        添加计时器
-      </Button>
       <Countdowns countdowns={countdowns} onToggleComplete={this.handleToggleComplete} />
-      <Modal ref="modal"
-        visible={this.state.visible}
-        title="添加计时器" onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)}
-        footer={[
-          <Button key="back" type="ghost" size="large" onClick={this.handleCancel.bind(this)}>返 回</Button>,
-          <Button key="submit" type="primary" size="large" loading={this.state.loading} onClick={this.handleOk.bind(this)}>
-            提 交
-          </Button>,
-        ]}>
-        <AddCountdown />
-      </Modal>
+      <AddCountdown  />
     </div>
   );
 }

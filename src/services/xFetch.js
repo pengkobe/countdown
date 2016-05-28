@@ -33,9 +33,9 @@ function xFetch(url, options) {
   const opts = { ...options };
   opts.headers = {
     ...opts.headers,
-    authorization: cookie.get('authorization') || '',
+  //  authorization: cookie.get('authorization') || '',
   };
-
+debugger;
   return fetch(url, opts)
     .then(check401)
     .then(check404)
