@@ -3,7 +3,7 @@ import { Spin, Button  } from 'antd';
 import Countdown from './Countdown';
 import AddCountdown from './AddCountdown';
 import styles from './Countdowns.less';
-import { getAll } from '../../services/Countdowns';
+import { getCountdowns } from '../../services/Countdowns';
 
 class CountdownsContainer extends Component {
 
@@ -18,7 +18,7 @@ class CountdownsContainer extends Component {
 
   loadCountdowns() {
     this.setState({ loading: true });
-    getAll().then(({ jsonResult }) => {
+    getCountdowns("").then(({ jsonResult }) => {
       this.setState({
         list: jsonResult.data,
         loading: false,
@@ -26,19 +26,6 @@ class CountdownsContainer extends Component {
     })
   }
 
-  // 状态切换(无用)
-  handleToggleComplete = (id) => {
-    const newList = this.state.list.map(countdown => {
-      if (id === countdown.id) {
-        return { ...countdown, isComplete: !countdown.isComplete };
-      } else {
-        return countdown;
-      }
-    });
-    this.setState({
-      list: newList,
-    });
-  }
 
 componentDidMount() {
   // 云端加载
@@ -53,14 +40,14 @@ render() {
   const countdowns = filter({ list, loading }, location.pathname);
   return (
     <div>
-      <Countdowns countdowns={countdowns} onToggleComplete={this.handleToggleComplete} />
       <AddCountdown  />
+      <Countdowns countdowns={countdowns} />
     </div>
   );
 }
 }
 
-const Countdowns = ({ countdowns, onToggleComplete }) => {
+const Countdowns = ({ countdowns,  }) => {
   const renderList = () => {
     const { list, loading } = countdowns;
     if (loading) {
@@ -70,12 +57,10 @@ const Countdowns = ({ countdowns, onToggleComplete }) => {
     return (
       <div className={styles.list}>
         {list.map(item => <Countdown
-          key={item.id}
+          key={item._id}
           data={item}
-          onToggleComplete={onToggleComplete.bind(this, item.id) }
           />
         ) }
-       
       </div>
     );
   };

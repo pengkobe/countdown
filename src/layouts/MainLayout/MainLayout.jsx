@@ -5,31 +5,30 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 import styles from './MainLayout.less';
 // onClick={this.handleClick} selectedKeys={[this.state.current]}
+//  <Menu
+//         mode="horizontal">
+//         <Menu.Item key="mail">
+//           <Icon type="mail" />首页
+//         </Menu.Item>
+//         <Menu.Item key="app" >
+//           <Icon type="appstore" />日历
+//         </Menu.Item>
+//         <SubMenu title={<span><Icon type="setting" />设置</span>}>
+//           <MenuItemGroup title="分组1">
+//             <Menu.Item key="setting:1">选项1</Menu.Item>
+//             <Menu.Item key="setting:2">选项2</Menu.Item>
+//           </MenuItemGroup>
+//         </SubMenu>
+//         <Menu.Item key="alipay">
+//           <a href="http://yipeng.info/" target="_blank">kobepeng</a>
+//         </Menu.Item>
+//       </Menu>
 const MainLayout = ({ children }) => {
   return (
     <div className={styles.normal}>
       <div className={styles.head}>
         <h1>倒计时</h1>
       </div>
-      <Menu
-        mode="horizontal">
-        <Menu.Item key="mail">
-          <Icon type="mail" />首页
-        </Menu.Item>
-        <Menu.Item key="app" >
-          <Icon type="appstore" />日历
-        </Menu.Item>
-        <SubMenu title={<span><Icon type="setting" />设置</span>}>
-          <MenuItemGroup title="分组1">
-            <Menu.Item key="setting:1">选项1</Menu.Item>
-            <Menu.Item key="setting:2">选项2</Menu.Item>
-          </MenuItemGroup>
-        </SubMenu>
-        <Menu.Item key="alipay">
-          <a href="http://yipeng.info/" target="_blank">kobepeng</a>
-        </Menu.Item>
-      </Menu>
-
       <div className={styles.content}>
         <div className={styles.side}>
           <Link to="/">全部</Link><br />

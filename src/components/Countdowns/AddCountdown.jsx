@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 /// 组件列表
-import { Form, Col, DatePicker, Button, Input, Modal, Select, Radio, Slider } from 'antd';
+import { Form, Col, DatePicker, Button, Input, Modal, Select, Radio, Checkbox, Slider } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
@@ -40,19 +40,13 @@ class AddCountdownContainer extends Component {
         // this.setState({
         //         loading: true,
         // });
-        // var data = new FormData()
-        // data.append('begintime', formValues.begintime);
-        // data.append('endtime', formValues.endtime);
-        // data.append('event', formValues.event);
-        // data.append('detail', formValues.detail);
-        // data.append('type', formValues.type);
-        // data.append('level', formValues.level);
-        // data.append('cycle', formValues.cycle);
         var data = JSON.stringify(formValues);
         addCountdown(data).then(({ jsonResult }) => {
             this.setState({
                 loading: false,
+                visible: false,
             });
+            this.props.form.resetFields();
         });
     }
 
@@ -62,7 +56,7 @@ class AddCountdownContainer extends Component {
         const { getFieldProps } = this.props.form;//{...getFieldProps('slider') } validateStatus="error" help="请选择正确日期"
         const typeSelectProps = getFieldProps('type', {
             rules: [
-                { required: true, message: '计时器类型未填' },
+                // { required: true, message: '计时器类型未填' },
             ],
         });
         return (
@@ -84,15 +78,35 @@ class AddCountdownContainer extends Component {
                             id="control-input"
                             label="名称："
                             labelCol={{ span: 4 }}
-                            wrapperCol={{ span: 16 }}>
+                            wrapperCol={{ span: 16 }}
+                            required>
                             <Input id="control-input" {...getFieldProps('event') } placeholder="计时器名称..." />
                         </FormItem>
                         <FormItem
                             id="control-textarea"
                             label="描述："
                             labelCol={{ span: 4 }}
-                            wrapperCol={{ span: 16 }}>
+                            wrapperCol={{ span: 16 }}
+                            required>
                             <Input type="textarea" id="control-textarea" {...getFieldProps('detail') }  rows="3" />
+                        </FormItem>
+                           <FormItem
+                            label="时间："
+                            labelCol={{ span: 4 }} required
+                            help>
+                            <Col span="7">
+                                <FormItem  >
+                                    <DatePicker  {...getFieldProps('begintime') }/>
+                                </FormItem>
+                            </Col>
+                            <Col span="1">
+                                <p className="ant-form-split">-</p>
+                            </Col>
+                            <Col span="7">
+                                <FormItem>
+                                    <DatePicker {...getFieldProps('endtime') }/>
+                                </FormItem>
+                            </Col>
                         </FormItem>
                         <FormItem
                             id="control-input"
@@ -119,30 +133,19 @@ class AddCountdownContainer extends Component {
                                 <Option value="其它">其它</Option>
                             </Select>
                         </FormItem>
-                        <FormItem
-                            label="时间："
-                            labelCol={{ span: 4 }}
-                            help>
-                            <Col span="7">
-                                <FormItem  >
-                                    <DatePicker  {...getFieldProps('begintime') }/>
-                                </FormItem>
-                            </Col>
-                            <Col span="1">
-                                <p className="ant-form-split">-</p>
-                            </Col>
-                            <Col span="7">
-                                <FormItem>
-                                    <DatePicker {...getFieldProps('endtime') }/>
-                                </FormItem>
-                            </Col>
-                        </FormItem>
+                     
                         <FormItem
                             label="级别："
                             labelCol={{ span: 4 }}
                             wrapperCol={{ span: 16 }}
-                            required>
-                            <Slider  {...getFieldProps('level') } marks={['A', 'B', 'C', 'D', 'E', 'F', 'G']}  />
+                            >
+                            <Slider  {...getFieldProps('level') } marks={['A', 'B', 'C', 'D', 'E', 'F']}  />
+                        </FormItem>
+                        <FormItem
+                            label="私有："
+                            labelCol={{ span: 4 }}
+                            wrapperCol={{ span: 16 }}>
+                            <Checkbox {...getFieldProps('isPrivate') }></Checkbox>
                         </FormItem>
                     </Form>
                 </Modal>
