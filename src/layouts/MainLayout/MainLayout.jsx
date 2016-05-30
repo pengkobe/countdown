@@ -23,6 +23,14 @@ import styles from './MainLayout.less';
 //           <a href="http://yipeng.info/" target="_blank">kobepeng</a>
 //         </Menu.Item>
 //       </Menu>
+
+
+// <div className={styles.side}>
+//       <Link to="/">全部</Link><br />
+//       <Link to="/actived">七天</Link><br />
+//       <Link to="/completed">一月</Link><br />
+//       <Link to="/404">404</Link><br />
+//     </div>
 const MainLayout = ({ children }) => {
   return (
     <div className={styles.normal}>
@@ -30,12 +38,6 @@ const MainLayout = ({ children }) => {
         <h1>倒计时</h1>
       </div>
       <div className={styles.content}>
-        <div className={styles.side}>
-          <Link to="/">全部</Link><br />
-          <Link to="/actived">七天</Link><br />
-          <Link to="/completed">一月</Link><br />
-          <Link to="/404">404</Link><br />
-        </div>
         <div className={styles.main}>
           {children}
         </div>

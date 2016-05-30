@@ -42,6 +42,7 @@ class AddCountdownContainer extends Component {
         // });
         var data = JSON.stringify(formValues);
         addCountdown(data).then(({ jsonResult }) => {
+            this.props.onAdd(formValues);
             this.setState({
                 loading: false,
                 visible: false,
@@ -61,7 +62,7 @@ class AddCountdownContainer extends Component {
         });
         return (
             <div>
-                <Button type="primary" onClick={this.showModal.bind(this) }>
+                <Button type="primary" icon="plus" onClick={this.showModal.bind(this) }>
                     添加计时器
                 </Button>
                 <Modal ref="modal"

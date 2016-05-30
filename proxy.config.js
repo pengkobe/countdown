@@ -23,23 +23,5 @@ module.exports = {
         ],
       });
     }, 500);
-  },
-  '/api/countdowns': function(req, res) {
-    setTimeout(function() {
-      res.json({
-        success: true,
-        data: [
-          {
-            id: 1,
-            text: '学习 antd',
-            isComplete: true,
-          },
-          {
-            id: 2,
-            text: '学习 ant-tool',
-          }
-        ],
-      });
-    }, 500);
-  },
+  }
 };

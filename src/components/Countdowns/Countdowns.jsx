@@ -3,7 +3,7 @@ import { Spin, Button  } from 'antd';
 import Countdown from './Countdown';
 import AddCountdown from './AddCountdown';
 import styles from './Countdowns.less';
-import { getCountdowns } from '../../services/Countdowns';
+import { getCountdowns, deleteCountdown } from '../../services/Countdowns';
 
 class CountdownsContainer extends Component {
 
@@ -26,28 +26,56 @@ class CountdownsContainer extends Component {
     })
   }
 
+  handleAdd = (model) => {
+    const newList = this.state.list.map(cd => {
+      return cd;
+    });
+    newList.unshift(model);
+    newList.sort(function(a,b){
+      return new Date(a.endtime).getTime() >  new Date(b.endtime).getTime();
+    });
+    this.setState({
+      list: newList,
+    });
+  }
 
-componentDidMount() {
-  // 云端加载
-  this.loadCountdowns();
+  handleDelete = (_id) => {
+    const newList = [];
+    this.state.list.map(cd => {
+      if (_id === cd._id) {
+        deleteCountdown(cd._id);
+        // return { ...cd, isPrivate: !cd.isPrivate };
+      } else {
+        newList.push(cd);
+        return cd;
+      }
+    });
+    this.setState({
+      list: newList,
+    });
+  }
+
+  componentDidMount() {
+    // 云端加载
+    this.loadCountdowns();
+  }
+
+  render() {
+    const { location } = this.props;
+    const { list, loading } = this.state;
+
+    // location.pathname: 当前路径
+    const countdowns = filter({ list, loading }, location.pathname);
+    return (
+      <div>
+        <AddCountdown onAdd={this.handleAdd.bind(this) } />
+        <Countdowns countdowns={countdowns} onDelete={this.handleDelete.bind(this) } className={styles.countdowns}/>
+      </div>
+    );
+  }
 }
 
-render() {
-  const { location } = this.props;
-  const { list, loading } = this.state;
-
-  // location.pathname: 当前路径
-  const countdowns = filter({ list, loading }, location.pathname);
-  return (
-    <div>
-      <AddCountdown  />
-      <Countdowns countdowns={countdowns} />
-    </div>
-  );
-}
-}
-
-const Countdowns = ({ countdowns,  }) => {
+const Countdowns = ({ countdowns, onDelete}) => {
   const renderList = () => {
     const { list, loading } = countdowns;
     if (loading) {
@@ -56,10 +84,10 @@ const Countdowns = ({ countdowns,  }) => {
 
     return (
       <div className={styles.list}>
-        {list.map(item => <Countdown
-          key={item._id}
-          data={item}
-          />
+        {list.map(item =>
+          <Countdown key={item._id} data={item}
+            onDelete={onDelete.bind(this, item._id) }
+            />
         ) }
       </div>
     );
