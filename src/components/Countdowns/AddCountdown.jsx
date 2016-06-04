@@ -61,7 +61,7 @@ class AddCountdownContainer extends Component {
             ],
         });
         return (
-            <div>
+            <div className={styles.addWrap}>
                 <Button type="primary" icon="plus" onClick={this.showModal.bind(this) }>
                     添加计时器
                 </Button>

@@ -35,7 +35,7 @@ const MainLayout = ({ children }) => {
   return (
     <div className={styles.normal}>
       <div className={styles.head}>
-        <h1>倒计时</h1>
+        <h1 className={styles.title} icon="clock" >倒计时</h1>
       </div>
       <div className={styles.content}>
         <div className={styles.main}>
