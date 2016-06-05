@@ -1,41 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { Router, Route, IndexRoute, Link } from 'react-router';
-import { Menu, Icon } from 'antd';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+import { Icon } from 'antd';
 import styles from './MainLayout.less';
-// onClick={this.handleClick} selectedKeys={[this.state.current]}
-//  <Menu
-//         mode="horizontal">
-//         <Menu.Item key="mail">
-//           <Icon type="mail" />首页
-//         </Menu.Item>
-//         <Menu.Item key="app" >
-//           <Icon type="appstore" />日历
-//         </Menu.Item>
-//         <SubMenu title={<span><Icon type="setting" />设置</span>}>
-//           <MenuItemGroup title="分组1">
-//             <Menu.Item key="setting:1">选项1</Menu.Item>
-//             <Menu.Item key="setting:2">选项2</Menu.Item>
-//           </MenuItemGroup>
-//         </SubMenu>
-//         <Menu.Item key="alipay">
-//           <a href="http://yipeng.info/" target="_blank">kobepeng</a>
-//         </Menu.Item>
-//       </Menu>
 
-
+// //路由导航
 // <div className={styles.side}>
 //       <Link to="/">全部</Link><br />
 //       <Link to="/actived">七天</Link><br />
 //       <Link to="/completed">一月</Link><br />
 //       <Link to="/404">404</Link><br />
 //     </div>
+
 const MainLayout = ({ children }) => {
   return (
     <div className={styles.normal}>
       <div className={styles.head}>
-        <h1 className={styles.title} icon="clock" >倒计时</h1>
+        <h1 className={styles.title} icon="plus">
+        <Icon type="clock-circle-o" />
+        倒计时</h1>
       </div>
       <div className={styles.content}>
         <div className={styles.main}>

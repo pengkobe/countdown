@@ -15,7 +15,8 @@ class Countdown extends Component {
       timestr: timestr,
       end: end,
       _id: _id,
-      intervalID: 0
+      intervalID: 0,
+      isComplete:false
     };
   }
 
@@ -24,8 +25,9 @@ class Countdown extends Component {
     var end = this.state.end;
     if (end.getTime() > begin.getTime()) {
       var id = setInterval(function (params) {
-        if (begin > end) {
-          clearInterval(id);
+        if (begin.getTime() > end.getTime()) {
+            clearInterval(id);
+            this.setState({ isComplete:true });
         }
         begin = new Date();
         this.setState({ timestr: timeSub(begin, end) });
@@ -33,7 +35,13 @@ class Countdown extends Component {
       this.setState({ intervalID: id });
     } else {
       // 云端加载
+      this.setState({ isComplete:true });
     }
+  }
+
+  componentWillUnmount(){
+    // 清除计时器
+    clearInterval(this.state.intervalID);
   }
 
   delete() {
@@ -42,20 +50,24 @@ class Countdown extends Component {
   }
 
   render() {
-    const { event, detail, begintime, endtime, type, isPrivate, level, cycle } = this.props.data;
+    const { event, detail, begintime, endtime,
+      type, isPrivate, level, cycle } = this.props.data;
+    const isComplete =  this.state.isComplete;
     const todoCls = classnames({
       [styles.normal]: false,
       [styles.htmltransition]: true,
-      [styles.isComplete]: false,
+      [styles.isComplete]:isComplete,
+      [styles.todoCls]: true,
     });
     return (
+      <div>
       <div className={todoCls}>
         <div className={styles.event}>
-          {event}  <Checkbox  checked={isPrivate}  />
-          <Button  className={styles.deleteButton} type="primary" size="small" shape="circle-outline" icon="cross"  onClick={this.delete.bind(this) } ></Button>
+            {event}
+            <Checkbox checked={isPrivate}  />
+            <div className={styles.detail}>
+            {detail}&nbsp;
         </div>
-        <div className={styles.detail}>
-          {detail}
         </div>
         <div className={styles.timecountLabel}>
           <span className={styles.timecountDay}>{this.state.timestr.day}</span>天
@@ -64,6 +76,8 @@ class Countdown extends Component {
           <span className={styles.timecountSecond}>{this.state.timestr.second}</span>秒
         </div>
         <Rate disabled value={level}/>
+         <Button className={styles.deleteButton} type="primary" size="small" shape="circle-outline" icon="cross"  onClick={this.delete.bind(this) } ></Button>
+      </div>
         <hr/>
       </div>
     );

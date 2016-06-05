@@ -54,7 +54,8 @@ class AddCountdownContainer extends Component {
     render() {
         const { location } = this.props;
         const { loading } = this.state;
-        const { getFieldProps } = this.props.form;//{...getFieldProps('slider') } validateStatus="error" help="请选择正确日期"
+        //{...getFieldProps('slider') } validateStatus="error" help="请选择正确日期"
+        const { getFieldProps } = this.props.form;
         const typeSelectProps = getFieldProps('type', {
             rules: [
                 // { required: true, message: '计时器类型未填' },
@@ -134,7 +135,7 @@ class AddCountdownContainer extends Component {
                                 <Option value="其它">其它</Option>
                             </Select>
                         </FormItem>
-                     
+
                         <FormItem
                             label="级别："
                             labelCol={{ span: 4 }}
