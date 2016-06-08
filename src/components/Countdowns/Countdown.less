@@ -27,7 +27,7 @@
   margin-left: 30px;
 }
 .timecountDay{
-  color: green;
+  color: gray;
   font-size: 50px;
 }
 .timecountHour{
@@ -35,7 +35,7 @@
   font-size: 40px;
 }
 .timecountMinute{
-  color: lawngreen;
+  color: green;
   font-size: 35px;
 }
 .timecountSecond{
@@ -69,5 +69,26 @@
   }
   100% {
     background: white;
+  }
+}
+
+@media screen and (max-width: 720px) {
+   .timecountDay{
+    font-size: 14px;
+  }
+  .timecountHour{
+    font-size: 14px;
+  }
+  .timecountMinute{
+    font-size: 14px;
+  }
+  .timecountSecond{
+     font-size: 14px;
+  }
+  .event{
+    font-size: 15px;
+  }
+  .eventLevel{
+      display:none;
   }
 }

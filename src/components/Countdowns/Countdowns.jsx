@@ -176,7 +176,7 @@ monthCellRender(value) {
           </Menu.Item>
           <Menu.Item key="yipeng">
             <a href="http://yipeng.info/" target="_blank">
-            <Icon type="user" />kobepeng</a>
+            <Icon type="user" />yipeng</a>
           </Menu.Item>
         </Menu>
         <div className={countdownsCls}>

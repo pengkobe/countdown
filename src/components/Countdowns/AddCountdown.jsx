@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-/// 组件列表
 import { Form, Col, DatePicker, Button, Input, Modal, Select, Radio, Checkbox, Slider } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -26,13 +25,11 @@ class AddCountdownContainer extends Component {
         setTimeout(() => {
             this.setState({ loading: false, visible: false });
         }, 3000);
-        // 在这里修改AddCountdown状态
     }
     handleCancel() {
         this.setState({ visible: false });
     }
     componentDidMount() { }
-
     handleSubmit(e) {
         e.preventDefault();
         var formValues = this.props.form.getFieldsValue();
@@ -54,12 +51,9 @@ class AddCountdownContainer extends Component {
     render() {
         const { location } = this.props;
         const { loading } = this.state;
-        //{...getFieldProps('slider') } validateStatus="error" help="请选择正确日期"
         const { getFieldProps } = this.props.form;
         const typeSelectProps = getFieldProps('type', {
-            rules: [
-                // { required: true, message: '计时器类型未填' },
-            ],
+            rules: [],
         });
         return (
             <div className={styles.addWrap}>
@@ -68,12 +62,17 @@ class AddCountdownContainer extends Component {
                 </Button>
                 <Modal ref="modal"
                     visible={this.state.visible}
-                    title="添加计时器" onOk={this.handleSubmit.bind(this) } onCancel={this.handleCancel.bind(this) }
+                    title="添加计时器"
+                    onOk={this.handleSubmit.bind(this) }
+                    onCancel={this.handleCancel.bind(this) }
                     footer={[
-                        <Button key="back" type="ghost" size="large" onClick={this.handleCancel.bind(this) }>取消</Button>,
-                        <Button key="submit" type="primary" size="large" loading={this.state.loading} onClick={this.handleSubmit.bind(this) }>
+                        <Button key="back" type="ghost" size="large"
+                        onClick={this.handleCancel.bind(this) }>取消</Button>,
+                        <Button key="submit" type="primary" size="large"
+                        loading={this.state.loading}
+                        onClick={this.handleSubmit.bind(this) }>
                             提 交
-                        </Button>,
+                        </Button>
                     ]}>
                     <Form horizontal form={this.props.form}>
                         <FormItem
@@ -139,8 +138,7 @@ class AddCountdownContainer extends Component {
                         <FormItem
                             label="级别："
                             labelCol={{ span: 4 }}
-                            wrapperCol={{ span: 16 }}
-                            >
+                            wrapperCol={{ span: 16 }}>
                             <Slider  {...getFieldProps('level') } marks={['A', 'B', 'C', 'D', 'E', 'F']}  />
                         </FormItem>
                         <FormItem

@@ -25,9 +25,9 @@ const MainLayout = ({ children }) => {
         </div>
       </div>
       <div className={styles.foot}>
-        <span>Copyright ©2013-2016 </span> |
+        <span>Copyright ©2016 </span> |
         <a href="www.miitbeian.gov.cn" target="_blank">粤ICP备14081691号</a> |
-        <a href="/">kobepeng</a>手工打造 | <a href="http://yipeng.info/about#contact">联系方式</a>
+        based on<a href="/">ant-design</a> | <a href="http://yipeng.info/about#contact">yipeng</a>
       </div>
     </div>
   );

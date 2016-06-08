@@ -75,7 +75,7 @@ class Countdown extends Component {
           <span className={styles.timecountMinute}>{this.state.timestr.minute}</span>分
           <span className={styles.timecountSecond}>{this.state.timestr.second}</span>秒
         </div>
-        <Rate disabled value={level}/>
+        <Rate disabled value={level}  className={styles.eventLevel}/>
          <Button className={styles.deleteButton} type="primary" size="small" shape="circle-outline" icon="cross"  onClick={this.delete.bind(this) } ></Button>
       </div>
         <hr/>
