@@ -34,13 +34,11 @@ class Countdown extends Component {
       }.bind(this), 1000);
       this.setState({ intervalID: id });
     } else {
-      // 云端加载
       this.setState({ isComplete:true });
     }
   }
 
   componentWillUnmount(){
-    // 清除计时器
     clearInterval(this.state.intervalID);
   }
 
