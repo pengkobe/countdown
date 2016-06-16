@@ -6,7 +6,7 @@ import NotFound from '../components/NotFound';
 // <Route path="/completed" component={App} /> projects/countdown/
 const Routes = ({ history }) =>
   <Router history={history}>
-    <Route path="/" component={App} />
+    <Route path="projects/countdown/" component={App} />
     <Route path="*" component={NotFound}/>
   </Router>;
 

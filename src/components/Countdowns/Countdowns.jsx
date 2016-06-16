@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Spin,Button,Menu, Icon,Calendar   } from 'antd';
+import { Spin, Button, Menu, Icon, Calendar   } from 'antd';
 import Countdown from './Countdown';
 import AddCountdown from './AddCountdown';
 import styles from './Countdowns.less';
@@ -17,7 +17,7 @@ class CountdownsContainer extends Component {
       // 倒计时列表
       list: [],
       loading: false,
-      current:'firstPage'
+      current: 'firstPage'
     };
   }
   // 加载countdown
@@ -26,23 +26,38 @@ class CountdownsContainer extends Component {
     getCountdowns("").then(({ jsonResult }) => {
       this.setState({
         list: jsonResult.data,
-        countdowns:null,
+        countdowns: null,
         loading: false,
       });
     })
   }
   // 添加countdown
   handleAdd = (model) => {
-    const newList = this.state.list.map(cd => {
+    var newList = this.state.list.map(cd => {
       return cd;
     });
     newList.unshift(model);
-    newList.sort(function(a,b){
-      return new Date(a.endtime).getTime() >  new Date(b.endtime).getTime();
+    newList = newList.sort(function (a, b) {
+      var c = new Date(a.endtime).getTime();
+      var d = new Date(b.endtime).getTime();
+      return (c - d);
     });
     this.setState({
       list: newList,
     });
+    const loading = this.state.loading;
+    const list = newList;
+    if (this.state.current == "completed") {
+      var countdowns = filter({ list, loading }, 'completed');
+      this.setState({
+        countdowns: countdowns,
+      });
+    } else if (this.state.current == "firstPage") {
+      var countdowns = filter({ list, loading }, 'firstPage');
+      this.setState({
+        countdowns: countdowns,
+      });
+    }
   }
 
   // 删除countdown
@@ -60,11 +75,24 @@ class CountdownsContainer extends Component {
     this.setState({
       list: newList,
     });
+    const loading = this.state.loading;
+    const list = newList;
+    if (this.state.current == "completed") {
+      var countdowns = filter({ list, loading }, 'completed');
+      this.setState({
+        countdowns: countdowns,
+      });
+    } else if (this.state.current == "firstPage") {
+      var countdowns = filter({ list, loading }, 'firstPage');
+      this.setState({
+        countdowns: countdowns,
+      });
+    }
   }
 
   // 日历点击事件
   onPanelChange(value, mode) {
-      console.log(value, mode);
+    console.log(value, mode);
   }
 
   getListData(value) {
@@ -75,67 +103,66 @@ class CountdownsContainer extends Component {
     var nowyear = value.getYear();// || value.getFullYear();
     var nowmonth = value.getMonth() + 1;
 
-    let listData =[];
-    for(var i = 0; i <listLen; i++){
+    let listData = [];
+    for (var i = 0; i < listLen; i++) {
       var li = dataList[i]
       var endtime = new Date(li.endtime);
       var fullyear = endtime.getFullYear();
       var month = endtime.getMonth() + 1;
       var day = endtime.getDate();
-      if(day==nowDay && month==nowmonth && fullyear == nowyear){
-          listData.push({ type: 'warning', content: li.event });
+      if (day == nowDay && month == nowmonth && fullyear == nowyear) {
+        listData.push({ type: 'warning', content: li.event });
       }
     }
     return listData || [];
-}
-
-dateCellRender(value) {
-  let listData = this.getListData(value);
-  return (
-    <ul className="{styles.c_events}">
-      {
-        listData.map((item, index) =>
-          <li key={index}>
-            <span className={`styles.c_event-${item.type}`}>●</span>
-            {item.content}
-          </li>
-        )
-      }
-    </ul>
-  );
-}
-
-getMonthData(value) {
-  if (value.getMonth() === 8) {
-    return 1394;
   }
-}
 
-monthCellRender(value) {
-  let num = this.getMonthData(value);
-  return num ? <div className="notes-month">
-    <section>{num}</section>
-    <span>待办事项数</span>
-  </div> : null;
-}
+  dateCellRender(value) {
+    let listData = this.getListData(value);
+    return (
+      <ul className="{styles.c_events}">
+        {
+          listData.map((item, index) =>
+            <li key={index}>
+              <span className={`styles.c_event-${item.type}`}>●</span>
+              {item.content}
+            </li>
+          )
+        }
+      </ul>
+    );
+  }
+  // 月份视图显示
+  getMonthData(value) {
+    if (value.getMonth() === 8) {
+      return 1394;
+    }
+  }
+  monthCellRender(value) {
+    let num = this.getMonthData(value);
+    return num ? <div className="notes-month">
+      <section>{num}</section>
+      <span>待办事项数</span>
+    </div> : null;
+  }
 
   // 菜单切换
   handleClick(e) {
     this.setState({
       current: e.key,
     });
-    if(e.key=="completed"){
-      const {list,loading}= this.state;
-      var countdowns = filter({list,loading}, 'completed');
+    if (e.key == "completed") {
+      const {list, loading} = this.state;
+      var countdowns = filter({ list, loading }, 'completed');
       this.setState({
-          countdowns: countdowns,
-       });
-    }else if(e.key=="firstPage"){
-        const {list,loading}= this.state;
-        var countdowns = filter({list,loading}, 'firstPage');
-        this.setState({
-            countdowns: countdowns,
-         });
+        countdowns: countdowns,
+      });
+    } else if (e.key == "firstPage") {
+      const {list, loading} = this.state;
+      var countdowns = filter({ list, loading }, 'firstPage');
+      this.setState({
+        countdowns: countdowns,
+      });
     }
   }
 
@@ -146,29 +173,29 @@ monthCellRender(value) {
 
   render() {
     const { location } = this.props;
-    const { list, loading ,current} = this.state;
-    if(!this.state.countdowns){
-        this.state.countdowns = filter({ list, loading }, location.pathname);
+    const { list, loading, current} = this.state;
+    if (!this.state.countdowns) {
+      this.state.countdowns = filter({ list, loading }, location.pathname);
     }
     // 过滤器
     const countdownsCls = classnames({
       [styles.countdowns]: true,
-      [styles.invisible]: current!='firstPage' &&  current!='completed'
+      [styles.invisible]: current != 'firstPage' && current != 'completed'
     });
     const calendarCls = classnames({
-      [styles.invisible]: current!='calendarView'
+      [styles.invisible]: current != 'calendarView'
     });
     return (
       <div>
         <AddCountdown onAdd={this.handleAdd.bind(this) } />
         <Menu
-          onClick={this.handleClick.bind(this)}
+          onClick={this.handleClick.bind(this) }
           selectedKeys={[this.state.current]}
           mode="horizontal">
           <Menu.Item key="firstPage">
             <Icon type="home" />首页
           </Menu.Item>
-           <Menu.Item key="completed" >
+          <Menu.Item key="completed" >
             <Icon type="calendar" />已完成
           </Menu.Item>
           <Menu.Item key="calendarView" >
@@ -176,7 +203,7 @@ monthCellRender(value) {
           </Menu.Item>
           <Menu.Item key="yipeng">
             <a href="http://yipeng.info/" target="_blank">
-            <Icon type="user" />yipeng</a>
+              <Icon type="user" />yipeng</a>
           </Menu.Item>
         </Menu>
         <div className={countdownsCls}>
@@ -185,10 +212,10 @@ monthCellRender(value) {
             onDelete={this.handleDelete.bind(this) } />
         </div>
         <Calendar
-         className={calendarCls}
-         dateCellRender={this.dateCellRender.bind(this)}
-         monthCellRender={this.monthCellRender.bind(this)}
-         onPanelChange={this.onPanelChange.bind(this)} />
+          className={calendarCls}
+          dateCellRender={this.dateCellRender.bind(this) }
+          monthCellRender={this.monthCellRender.bind(this) }
+          onPanelChange={this.onPanelChange.bind(this) } />
       </div>
     );
   }
@@ -223,8 +250,8 @@ Countdowns.propTypes = {};
 
 /* 过滤器，按日期/级别过滤 */
 function filter(countdowns, pathname) {
-  if(!(countdowns.list instanceof Array)){
-    return { ...countdowns, list: []};
+  if (!(countdowns.list instanceof Array)) {
+    return { ...countdowns, list: [] };
   }
   const newList = countdowns.list.filter(countdown => {
     var begin = new Date();
@@ -234,17 +261,17 @@ function filter(countdowns, pathname) {
       return !countdown.isComplete;
     }
     if (pathname === 'completed') {
-       if (end.getTime() < begin.getTime()) {
-            return true;
-        }else{
-            return false;
-        }
-    }
       if (end.getTime() < begin.getTime()) {
-          return false;
-      }else{
-          return true;
+        return true;
+      } else {
+        return false;
       }
+    }
+    if (end.getTime() < begin.getTime()) {
+      return false;
+    } else {
+      return true;
+    }
   });
 
   return { ...countdowns, list: newList };

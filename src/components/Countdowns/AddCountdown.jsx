@@ -34,12 +34,11 @@ class AddCountdownContainer extends Component {
         e.preventDefault();
         var formValues = this.props.form.getFieldsValue();
         console.log('收到表单值：', formValues);
-        // this.setState({
-        //         loading: true,
-        // });
         var data = JSON.stringify(formValues);
+        // there is a little weried
+        var addData = JSON.parse(data);
         addCountdown(data).then(({ jsonResult }) => {
-            this.props.onAdd(formValues);
+            this.props.onAdd(addData);
             this.setState({
                 loading: false,
                 visible: false,
@@ -67,10 +66,10 @@ class AddCountdownContainer extends Component {
                     onCancel={this.handleCancel.bind(this) }
                     footer={[
                         <Button key="back" type="ghost" size="large"
-                        onClick={this.handleCancel.bind(this) }>取消</Button>,
+                            onClick={this.handleCancel.bind(this) }>取消</Button>,
                         <Button key="submit" type="primary" size="large"
-                        loading={this.state.loading}
-                        onClick={this.handleSubmit.bind(this) }>
+                            loading={this.state.loading}
+                            onClick={this.handleSubmit.bind(this) }>
                             提 交
                         </Button>
                     ]}>
@@ -91,7 +90,7 @@ class AddCountdownContainer extends Component {
                             required>
                             <Input type="textarea" id="control-textarea" {...getFieldProps('detail') }  rows="3" />
                         </FormItem>
-                           <FormItem
+                        <FormItem
                             label="时间："
                             labelCol={{ span: 4 }} required
                             help>
