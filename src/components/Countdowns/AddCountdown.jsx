@@ -35,10 +35,9 @@ class AddCountdownContainer extends Component {
         var formValues = this.props.form.getFieldsValue();
         console.log('收到表单值：', formValues);
         var data = JSON.stringify(formValues);
-        // there is a little weried
         var addData = JSON.parse(data);
         addCountdown(data).then(({ jsonResult }) => {
-            this.props.onAdd(addData);
+            this.props.onAdd(jsonResult.message);
             this.setState({
                 loading: false,
                 visible: false,
