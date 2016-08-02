@@ -10,7 +10,6 @@ class AddCountdownContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // 倒计时列表
             loading: false,
             visible: false,
         };
@@ -37,7 +36,8 @@ class AddCountdownContainer extends Component {
         var data = JSON.stringify(formValues);
         var addData = JSON.parse(data);
         addCountdown(data).then(({ jsonResult }) => {
-            this.props.onAdd(jsonResult.message);
+            debugger;
+            this.props.onAdd(jsonResult.data);
             this.setState({
                 loading: false,
                 visible: false,
@@ -93,15 +93,7 @@ class AddCountdownContainer extends Component {
                             label="时间："
                             labelCol={{ span: 4 }} required
                             help>
-                            <Col span="7">
-                                <FormItem  >
-                                    <DatePicker  {...getFieldProps('begintime') }/>
-                                </FormItem>
-                            </Col>
-                            <Col span="1">
-                                <p className="ant-form-split">-</p>
-                            </Col>
-                            <Col span="7">
+                            <Col span="12">
                                 <FormItem>
                                     <DatePicker {...getFieldProps('endtime') }/>
                                 </FormItem>
@@ -151,5 +143,16 @@ class AddCountdownContainer extends Component {
         );
     }
 }
+
+// backup
+// <Col span="7">
+//     <FormItem  >
+//         <DatePicker  {...getFieldProps('begintime') }/>
+//     </FormItem>
+// </Col>
+// <Col span="1">
+//     <p className="ant-form-split">-</p>
+//  </Col>
+
 AddCountdownContainer = Form.create()(AddCountdownContainer);
 export default AddCountdownContainer;

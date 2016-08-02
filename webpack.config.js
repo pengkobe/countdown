@@ -18,8 +18,14 @@ module.exports = function (webpackConfig) {
   //   loader: 'es3ify-loader',
   // });
 
+  // 加载自定义字体
+  webpackConfig.module.loaders.unshift({
+    test: /\.(svg|ttf|eot|woff|woff2)$/,
+    loader: 'file-loader?name=[name].[ext]'
+  });
+
   // Parse all less files as css module.
-  webpackConfig.module.loaders.forEach(function(loader, index) {
+  webpackConfig.module.loaders.forEach(function (loader, index) {
     if (typeof loader.test === 'function' && loader.test.toString().indexOf('\\.less$') > -1) {
       loader.test = /\.dont\.exist\.file/;
     }
@@ -30,7 +36,7 @@ module.exports = function (webpackConfig) {
 
   // Load src/entries/*.js as entry automatically.
   const files = glob.sync('./src/entries/*.js');
-  const newEntries = files.reduce(function(memo, file) {
+  const newEntries = files.reduce(function (memo, file) {
     const name = path.basename(file, '.js');
     memo[name] = file;
     return memo;

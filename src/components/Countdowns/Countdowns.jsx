@@ -106,6 +106,9 @@ class CountdownsContainer extends Component {
     let listData = [];
     for (var i = 0; i < listLen; i++) {
       var li = dataList[i]
+      if (!li) {
+        continue;
+      }
       var endtime = new Date(li.endtime);
       var fullyear = endtime.getFullYear();
       var month = endtime.getMonth() + 1;
@@ -201,10 +204,6 @@ class CountdownsContainer extends Component {
           <Menu.Item key="calendarView" >
             <Icon type="calendar" />日历
           </Menu.Item>
-          <Menu.Item key="yipeng">
-            <a href="http://yipeng.info/" target="_blank">
-              <Icon type="user" />yipeng</a>
-          </Menu.Item>
         </Menu>
         <div className={countdownsCls}>
           <Countdowns
@@ -254,6 +253,9 @@ function filter(countdowns, pathname) {
     return { ...countdowns, list: [] };
   }
   const newList = countdowns.list.filter(countdown => {
+    if (!countdown) {
+      return false;
+    }
     var begin = new Date();
     var end = new Date(countdown.endtime);
 

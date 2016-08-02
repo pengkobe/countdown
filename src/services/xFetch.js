@@ -1,3 +1,7 @@
+/** yipeng注:
+ * xFetch返回值格式要求很BT:{success: true,data:data}
+ */
+
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 
