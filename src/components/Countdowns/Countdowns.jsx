@@ -33,13 +33,13 @@ class CountdownsContainer extends Component {
   }
   // 添加countdown
   handleAdd = (model) => {
-    var newList = this.state.list.map(cd => {
+    let newList = this.state.list.map(cd => {
       return cd;
     });
     newList.unshift(model);
     newList = newList.sort(function (a, b) {
-      var c = new Date(a.endtime).getTime();
-      var d = new Date(b.endtime).getTime();
+      let c = new Date(a.endtime).getTime();
+      let d = new Date(b.endtime).getTime();
       return (c - d);
     });
     this.setState({
@@ -48,12 +48,12 @@ class CountdownsContainer extends Component {
     const loading = this.state.loading;
     const list = newList;
     if (this.state.current == "completed") {
-      var countdowns = filter({ list, loading }, 'completed');
+      let countdowns = filter({ list, loading }, 'completed');
       this.setState({
         countdowns: countdowns,
       });
     } else if (this.state.current == "firstPage") {
-      var countdowns = filter({ list, loading }, 'firstPage');
+      let countdowns = filter({ list, loading }, 'firstPage');
       this.setState({
         countdowns: countdowns,
       });
@@ -78,12 +78,12 @@ class CountdownsContainer extends Component {
     const loading = this.state.loading;
     const list = newList;
     if (this.state.current == "completed") {
-      var countdowns = filter({ list, loading }, 'completed');
+      let countdowns = filter({ list, loading }, 'completed');
       this.setState({
         countdowns: countdowns,
       });
     } else if (this.state.current == "firstPage") {
-      var countdowns = filter({ list, loading }, 'firstPage');
+      let countdowns = filter({ list, loading }, 'firstPage');
       this.setState({
         countdowns: countdowns,
       });
@@ -96,23 +96,23 @@ class CountdownsContainer extends Component {
   }
 
   getListData(value) {
-    var dataList = this.state.list;
-    var listLen = dataList.length;
+    let dataList = this.state.list;
+    let listLen = dataList.length;
 
-    var nowDay = value.getDayOfMonth();
-    var nowyear = value.getYear();// || value.getFullYear();
-    var nowmonth = value.getMonth() + 1;
+    let nowDay = value.getDayOfMonth();
+    let nowyear = value.getYear();// || value.getFullYear();
+    let nowmonth = value.getMonth() + 1;
 
     let listData = [];
-    for (var i = 0; i < listLen; i++) {
-      var li = dataList[i]
+    for (let i = 0; i < listLen; i++) {
+      let li = dataList[i]
       if (!li) {
         continue;
       }
-      var endtime = new Date(li.endtime);
-      var fullyear = endtime.getFullYear();
-      var month = endtime.getMonth() + 1;
-      var day = endtime.getDate();
+      let endtime = new Date(li.endtime);
+      let fullyear = endtime.getFullYear();
+      let month = endtime.getMonth() + 1;
+      let day = endtime.getDate();
       if (day == nowDay && month == nowmonth && fullyear == nowyear) {
         listData.push({ type: 'warning', content: li.event });
       }
@@ -156,13 +156,13 @@ class CountdownsContainer extends Component {
     });
     if (e.key == "completed") {
       const {list, loading} = this.state;
-      var countdowns = filter({ list, loading }, 'completed');
+      let countdowns = filter({ list, loading }, 'completed');
       this.setState({
         countdowns: countdowns,
       });
     } else if (e.key == "firstPage") {
       const {list, loading} = this.state;
-      var countdowns = filter({ list, loading }, 'firstPage');
+      let countdowns = filter({ list, loading }, 'firstPage');
       this.setState({
         countdowns: countdowns,
       });
@@ -256,8 +256,8 @@ function filter(countdowns, pathname) {
     if (!countdown) {
       return false;
     }
-    var begin = new Date();
-    var end = new Date(countdown.endtime);
+    let begin = new Date();
+    let end = new Date(countdown.endtime);
 
     if (pathname === '/actived') {
       return !countdown.isComplete;

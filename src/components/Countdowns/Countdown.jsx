@@ -8,9 +8,9 @@ class Countdown extends Component {
   constructor(props) {
     super(props);
     const { begintime, endtime, _id} = this.props.data;
-    var end = new Date(endtime);
-    var begin = new Date();
-    var timestr = timeSub(begin, formatTime(end));
+    let end = new Date(endtime);
+    let begin = new Date();
+    let timestr = timeSub(begin, formatTime(end));
     this.state = {
       timestr: timestr,
       end: end,
@@ -21,10 +21,10 @@ class Countdown extends Component {
   }
 
   componentDidMount() {
-    var begin = new Date();
-    var end = this.state.end;
+    let begin = new Date();
+    let end = this.state.end;
     if (end.getTime() > begin.getTime()) {
-      var id = setInterval(function (params) {
+      let id = setInterval(function (params) {
         if (begin.getTime() > end.getTime()) {
             clearInterval(id);
             this.setState({ isComplete:true });
@@ -37,7 +37,7 @@ class Countdown extends Component {
       this.setState({ isComplete:true });
     }
   }
-
+  /** 必须清除.否则会报错 */
   componentWillUnmount(){
     clearInterval(this.state.intervalID);
   }
@@ -88,22 +88,22 @@ class Countdown extends Component {
 
 
 function timeSub(begintime, endtime) {
-  var t = endtime.getTime() - begintime.getTime();
-  var d = Math.floor(t / 1000 / 60 / 60 / 24);
-  var h = Math.floor(t / 1000 / 60 / 60 % 24);
-  var m = Math.floor(t / 1000 / 60 % 60);
-  var s = Math.floor(t / 1000 % 60);
+  let t = endtime.getTime() - begintime.getTime();
+  let d = Math.floor(t / 1000 / 60 / 60 / 24);
+  let h = Math.floor(t / 1000 / 60 / 60 % 24);
+  let m = Math.floor(t / 1000 / 60 % 60);
+  let s = Math.floor(t / 1000 % 60);
   return { day: d, hour: h, minute: m, second: s };
 }
 
 function formatTime(datetime) {
-  var fullyear = datetime.getFullYear();
-  var month = datetime.getMonth() + 1;
-  var day = datetime.getDate();
-  var hour = datetime.getHours();
-  var minute = datetime.getMinutes();
+  let fullyear = datetime.getFullYear();
+  let month = datetime.getMonth() + 1;
+  let day = datetime.getDate();
+  let hour = datetime.getHours();
+  let minute = datetime.getMinutes();
   //存储各种时间格式，方便以后扩展
-  var createtime = {
+  let createtime = {
     day: fullyear + "-" + (month < 10 ? '0' + month : month) + "-" + (day < 10 ? '0' + day : day),
   }
   return new Date(createtime.day);
