@@ -7,7 +7,7 @@ import NotFound from '../components/NotFound';
 const Routes = ({ history }) =>
   <Router history={history}>
     <Route path="/" component={App} />
-    <Route path="*" component={NotFound}/>
+    <Route path="*" component={NotFound} />
   </Router>;
 
 Routes.propTypes = {

@@ -6,9 +6,9 @@ export async function addCountdown(data) {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: data
+    body: data,
   });
 }
 
@@ -18,19 +18,19 @@ export async function getCountdowns(condition) {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: condition
+    body: condition,
   });
 }
 
 // 删除
 export async function deleteCountdown(_id) {
-  return xFetch('/countdown/'+_id+'/delete', {
+  return xFetch('/countdown/' + _id + '/delete', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   });
 }

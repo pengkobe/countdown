@@ -34,7 +34,7 @@ function errorMessageParse(res) {
 }
 
 function xFetch(url, options) {
-  var url = 'http://yipeng.info'+url;
+  var url = 'http://yipeng.info' + url;
   const opts = { ...options };
   opts.headers = {
     ...opts.headers,
