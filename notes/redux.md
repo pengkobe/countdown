@@ -54,7 +54,173 @@ Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生�
 
 ## 中间件与异步操作
 中间件（middleware）能让 Reducer 在异步操作结束后自动执行
+### 中间件的概念
+中间件应该添加在*dispatch*阶段。
+### 中间件的用法
+```javascript
+import { applyMiddleware, createStore } from 'redux';
+import createLogger from 'redux-logger';
+const logger = createLogger();
 
+const store = createStore(
+  reducer,
+  applyMiddleware(logger)
+);
+```
+### applyMiddlewares()
+```javascript
+export default function applyMiddleware(...middlewares) {
+  return (createStore) => (reducer, preloadedState, enhancer) => {
+    var store = createStore(reducer, preloadedState, enhancer);
+    var dispatch = store.dispatch;
+    var chain = [];
+
+    var middlewareAPI = {
+      getState: store.getState,
+      dispatch: (action) => dispatch(action)
+    };
+    chain = middlewares.map(middleware => middleware(middlewareAPI));
+    dispatch = compose(...chain)(store.dispatch);
+
+    return {...store, dispatch}
+  }
+}
+```
+### 异步操作的基本思路
+* 操作开始时，送出一个 Action，触发 State 更新为"正在操作"状态，View 重新渲染
+* 操作结束后，再送出一个 Action，触发 State 更新为"操作结束"状态，View 再一次重新渲染
+### redux-thunk 中间件
+使用redux-thunk中间件，改造store.dispatch，使得后者可以接受函数作为参数。
+
+```javascript
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducers';
+
+// Note: this API requires redux@>=3.1.0
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
+```
+
+### redux-promise 中间件
+方法1
+
+```javascript
+const fetchPosts = 
+  (dispatch, postTitle) => new Promise(function (resolve, reject) {
+     dispatch(requestPosts(postTitle));
+     return fetch(`/some/API/${postTitle}.json`)
+       .then(response => {
+         type: 'FETCH_POSTS',
+         payload: response.json()
+       });
+});
+```
+
+方法2
+
+```javascript
+import { createAction } from 'redux-actions';
+
+class AsyncApp extends Component {
+  componentDidMount() {
+    const { dispatch, selectedPost } = this.props
+    // 发出同步 Action
+    dispatch(requestPosts(selectedPost));
+    // 发出异步 Action
+    dispatch(createAction(
+      'FETCH_POSTS', 
+      fetch(`/some/API/${postTitle}.json`)
+        .then(response => response.json())
+    ));
+  }
+```  
+
+## react-redux
+> 首先，react-redux 和 redux 是两个不同的东西。
+
+### UI 组件
+* 只负责 UI 的呈现，不带有任何业务逻辑
+* 没有状态（即不使用this.state这个变量）
+* 所有数据都由参数（this.props）提供
+* 不使用任何 Redux 的 API
+
+### 容器组件
+* 负责管理数据和业务逻辑，不负责 UI 的呈现
+* 带有内部状态
+* 使用 Redux 的 API
+
+### connect()
+用于从 UI 组件生成容器组件。connect的意思，就是将这两种组件连起来。
+
+```javascript
+import { connect } from 'react-redux'
+
+const VisibleTodoList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList)
+```
+
+### mapStateToProps()
+建立一个从（外部的）state对象到（UI 组件的）props对象的映射关系。
+
+```javascript
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed)
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed)
+    default:
+      throw new Error('Unknown filter: ' + filter)
+  }
+}
+```
+
+### mapDispatchToProps()
+用来建立 UI 组件的参数到store.dispatch方法的映射。
+
+```javascript
+const mapDispatchToProps = (
+  dispatch,
+  ownProps
+) => {
+  return {
+    onClick: () => {
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+      });
+    }
+  };
+}
+// 写出对象后
+const mapDispatchToProps = {
+  onClick: (filter) => {
+    type: 'SET_VISIBILITY_FILTER',
+    filter: filter
+  };
+```
+
+### <Provider> 组件
+可以让容器组件拿到state，唯一功能就是传入store对象。
+
+
+### React-Router 路由库
+```javascript
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <Router>
+      <Route path="/" component={App} />
+    </Router>
+  </Provider>
+);
+```
 
 
 ## Store 的实现
@@ -166,4 +332,6 @@ https://github.com/reactjs/redux/tree/master/examples/counter
 
 
 ## 教程参考
-http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html
+http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html  
+http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html  
+http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html
