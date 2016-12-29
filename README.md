@@ -1,4 +1,4 @@
-# Countdown webapp
+# Countdown 
 > dev based on [ant-design](http://ant.design/)
 
 ### Features
@@ -12,7 +12,7 @@
 - antd 1.1.2
 
 ### How to run
-install antd-init. please make sure node>=4.x
+install antd-init. please make sure your node version>=4.x
 ```
 npm install antd-init -g
 ```   
@@ -30,9 +30,9 @@ build & deply
 
 looking for more : https://ant.design/docs/react/getting-started
 
-## Demo
+### Demo
 [http://yipeng.info/projects/countdown/](http://yipeng.info/projects/countdown/)
 
-### Protocal
+### License
 MIT@yipeng.info
 
