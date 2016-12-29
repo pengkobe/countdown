@@ -1,11 +1,10 @@
 # Countdown webapp
-dev based on [ant-design](http://ant.design/)
+> dev based on [ant-design](http://ant.design/)
 
-### Todo
-- 可视化重要时间节点
-- 对重要时间点倒计时
-- 分星期、月、年汇总
-- 按重要程度汇总
+### Features
+- visualization time-node countdown (count the time in seconds round the time to seconds)
+- sort with start(1-5)
+- suport week/month/year view
 
 ### Dev env
 - 4.4.2
