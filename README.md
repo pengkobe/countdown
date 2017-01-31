@@ -1,17 +1,17 @@
 # Countdown 
 > dev based on [ant-design](http://ant.design/)
 
-### Features
+## Features
 - visualization time-node countdown (count the time in seconds round the time to seconds)
 - sort with start(1-5)
 - suport week/month/year view
 
-### Dev env
-- 4.4.2
+## Dev env
+- node 4.4.2
 - npm 3.9.3
 - antd 1.1.2
 
-### How to run
+## How to run
 install antd-init. please make sure your node version>=4.x
 ```
 npm install antd-init -g
@@ -30,9 +30,9 @@ build & deply
 
 looking for more : https://ant.design/docs/react/getting-started
 
-### Demo
+## Demo
 [http://yipeng.info/projects/countdown/](http://yipeng.info/projects/countdown/)
 
-### License
+## License
 MIT@yipeng.info
 
