@@ -94,7 +94,7 @@ class AddCountdownContainer extends Component {
                             help>
                             <Col span="12">
                                 <FormItem>
-                                    <DatePicker {...getFieldProps('endtime') }/>
+                                    <DatePicker {...getFieldProps('endtime') } showTime format="YYYY-MM-dd HH:mm:ss"/>
                                 </FormItem>
                             </Col>
                         </FormItem>

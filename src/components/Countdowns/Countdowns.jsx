@@ -120,6 +120,9 @@ class CountdownsContainer extends Component {
     return listData || [];
   }
 
+  /**
+   * 渲染日历视图：日
+   */
   dateCellRender(value) {
     let listData = this.getListData(value);
     return (

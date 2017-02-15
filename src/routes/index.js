@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute, Link } from 'react-router';
 import App from '../components/App';
 import NotFound from '../components/NotFound';
 // <Route path="/actived" component={App} />
-// <Route path="/completed" component={App} /> projects/countdown/
+// <Route path="/completed" component={App} /> /projects/countdown/
 const Routes = ({ history }) =>
   <Router history={history}>
     <Route path="/" component={App} />

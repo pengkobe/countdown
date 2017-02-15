@@ -10,7 +10,9 @@ class Countdown extends Component {
     const { begintime, endtime, _id} = this.props.data;
     let end = new Date(endtime);
     let begin = new Date();
-    let timestr = timeSub(begin, formatTime(end));
+    let timestr = timeSub(begin, end);
+    // 这里无须格式化，本身可以计算精确到秒
+    // let timestr = timeSub(begin, formatTime(end)); 
     this.state = {
       timestr: timestr,
       end: end,
@@ -96,6 +98,9 @@ function timeSub(begintime, endtime) {
   return { day: d, hour: h, minute: m, second: s };
 }
 
+/** 
+ * 废弃
+ */
 function formatTime(datetime) {
   let fullyear = datetime.getFullYear();
   let month = datetime.getMonth() + 1;

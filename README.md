@@ -32,7 +32,7 @@ build & deply
 looking for more : https://ant.design/docs/react/getting-started
 
 ## Demo
-[http://yipeng.info/projects/countdown/](http://yipeng.info/projects/countdown/)
+[https://yipeng.info/projects/countdown/](https://yipeng.info/projects/countdown/)
 
 ### Protocal
 MIT@yipeng.info
