@@ -35,17 +35,23 @@ function errorMessageParse(res) {
 
 function xFetch(url, options) {
   var url = 'https://yipeng.info' + url;
+  // var url = 'http://localhost:3000' + url;
   // ... 其实是将数组转化为 p1,p2,p3,
   const opts = { ...options };
   opts.headers = {
     ...opts.headers,
-  //  authorization: cookie.get('authorization') || '',
+    //  authorization: cookie.get('authorization') || '',
   };
+  opts.credentials = 'include';
   return fetch(url, opts)
     .then(check401)
     .then(check404)
     .then(jsonParse)
-    .then(errorMessageParse);
+    .then(errorMessageParse)
+    .catch(e => {
+      console.log("Oops, error:", e);
+      alert("opps~你无该操作无权限,你所做的操作并不会提交至服务器哦:)~");
+    });
 }
 
 export default xFetch;
