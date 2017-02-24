@@ -23,7 +23,7 @@ cd my_countdown
 npm start
 ```  
 
-build & deply
+build & deploy
 ```
  npm run build
 ```
