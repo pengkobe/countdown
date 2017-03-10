@@ -31,7 +31,7 @@ build & deploy
 looking for more : https://ant.design/docs/react/getting-started
 
 ## Demo
-[https://yipeng.info/projects/countdown/](https://yipeng.info/projects/countdown/)
+[http://countdown.yipeng.info/](http://countdown.yipeng.info/)
 
 ## License
 MIT@yipeng.info

@@ -34,7 +34,7 @@ function errorMessageParse(res) {
 }
 
 function xFetch(url, options) {
-  var url = 'https://yipeng.info' + url;
+  var url = 'http://countdown.yipeng.info' + url;
   // var url = 'http://localhost:3000' + url;
   // ... 其实是将数组转化为 p1,p2,p3,
   const opts = { ...options };
