@@ -1,0 +1,38 @@
+{
+  "name": "my_blog",
+  "version": "1.0.0",
+  "description": "mainly build for my blog",
+  "main": "myBlog",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kobepeng",
+    "yipeng",
+    "blog"
+  ],
+  "author": "kobepeng",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "ejs": "~0.8.5",
+    "express": "~4.2.0",
+    "morgan": "~1.0.0",
+    "socket.io": "^1.0.6",
+    "static-favicon": "~1.0.0",
+    "xss-escape": "0.0.5"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^1.1.0",
+    "express-session": "^1.13.0",
+    "marked": "^0.3.5",
+    "mongodb": "^2.1.3",
+    "multer": "^1.1.0"
+  }
+}

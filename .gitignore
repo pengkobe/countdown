@@ -1,4 +1,8 @@
 dist
 node_modules
 .DS_Store
-
+server/node_modules
+access.log
+error.log
+server/access.log
+server/error.log
