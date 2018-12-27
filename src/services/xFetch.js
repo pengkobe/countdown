@@ -3,7 +3,6 @@
  */
 
 import fetch from 'isomorphic-fetch';
-import cookie from 'js-cookie';
 
 const errorMessages = (res) => `${res.status} ${res.statusText}`;
 
@@ -34,13 +33,10 @@ function errorMessageParse(res) {
 }
 
 function xFetch(url, options) {
-  var url = 'http://countdown.yipeng.info' + url;
-  // var url = 'http://localhost:3000' + url;
-  // ... 其实是将数组转化为 p1,p2,p3,
+  url = 'http://countdown.yipeng.info' + url;
   const opts = { ...options };
   opts.headers = {
     ...opts.headers,
-    //  authorization: cookie.get('authorization') || '',
   };
   opts.credentials = 'include';
   return fetch(url, opts)
